@@ -1,0 +1,223 @@
+!!!!!! HCN
+file out W49A_HCN_267.apex m
+set line SETUP3_OSB
+set source W49
+set tele AP-P204-F404  !sideband
+
+!!!
+!!!!
+file in M-0104.F-9511A-2019-2019-09-15.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-24.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-11-10.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-16.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-26.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-11-13.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-17.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-10-03.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-11-27.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-21.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-10-04.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-11-29.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-22.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-10-05.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-09-23.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+
+file in M-0104.F-9511A-2019-2019-11-09.apex
+find /all
+for i 1 to found
+get n
+modif freq 265886.18
+set unit v
+set mo x -100 120
+plot
+set win -10 80
+base 1
+wr
+next
+!!!!
+
+file in W49A_HCN_267.apex
+fin /all
+table W49A_HCN_267 new /RESAMPLE 220 0 -100 1 velo
+xy_map W49A_HCN_267
+vector\fits W49A_HCN_267.fits from W49A_HCN_267.lmv
+!!!!!!!

@@ -1,0 +1,61 @@
+! This script implements switching the APEX CLASS data temperature units
+! from T_A* to T_MB and possibly modifying the beam efficiency value after
+! the units have been switched to T_MB already. Due to the lack of explicit
+! temperature scale information ("YUNIT" not yet being available at this
+! time (Oct. 2020)), one can only rely indirectly on the settings of the
+! BEAM_EFF and FORWARD_EFF variables in the CLASS header.
+!
+! The APEX data is calibrated by the online system and written to CLASS
+! format in T_A* units. The forward efficiency in the header is set to
+! the actual value (<1.0). The beam efficiency is set to 1.0. In order to
+! switch to the T_MB scale, one needs to multiply the data by eta_fw/eta_beam.
+! Any further modification of eta_beam after this switch of scale needs a
+! multiplication by eta_beam_old/eta_beam_new. The "MODIFY BEAM_EFF" command
+! in CLASS does the latter, i.e. it will use the existing eta_beam (=BEAM_EFF)
+! as eta_beam_old and the supplied value as eta_beam_new. That is why the
+! first step to switch to T_MB needs an initial BEAM_EFF set to FORWARD_EFF.
+!
+! Usage: @set_apex_beam_efficiency new_beam_efficiency
+!
+! D. Muders, MPIfR, 10/2020
+
+define double new_beam_efficiency
+
+! Check if this is APEX data
+if telescope[1:2].ne."AP" then
+!    say "This is no APEX data. Will not modify anything."
+    return
+endif
+
+! Consistency check for forward efficiency
+if forward_eff.eq.1.0 then
+!    say "The original forward efficiency has been modified. Cannot continue."
+    return
+endif
+
+let new_beam_efficiency &1
+
+! Check beam efficiency to decide if the spectrum is in T_A* or T_MB scale
+if beam_eff.eq.1.0 then
+!    say "Beam efficiency is 1.0. Assuming that this data is still in the"
+!    say "original T_A* scale as written by the APEX Calibrator. Will switch"
+!    say "to T_MB scale using beam efficiency of "'new_beam_efficiency'"."
+!    say "The following MODIFY BEAM_EFF command will show the forward"
+!    say "efficiency as the old beam efficiency. This is just a temporary"
+!    say "setting to achieve the correct scaling and efficiency header entry."
+    ! One must set the current beam efficiency to the forward efficiency
+    ! to get proper scaling of data and header entries such as TSYS by
+    ! eta_fw/eta_beam. Note that this factor should not be included in the
+    ! modify command because it would store the value of eta_fw/eta_beam
+    ! as the new beam efficiency which leads to a wrong efficiency header
+    ! entry and subsequently to wrong scaling for any further modification
+    ! of eta_mb. Also note that a simple MULTIPLY command would only scale
+    ! RY and not TSYS.
+    let beam_eff forward_eff
+else
+!    say "Beam efficiency is <1.0. Assuming that this data is in T_MB scale."
+!    say "Will rescale the data using new beam efficiency of "'new_beam_efficiency'"."
+endif
+
+modify beam_eff new_beam_efficiency
+
